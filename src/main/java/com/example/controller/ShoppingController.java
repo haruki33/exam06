@@ -19,6 +19,7 @@ public class ShoppingController {
 
     @Autowired
     private HttpSession session;
+    @Autowired
     private ServletContext application;
 
     @GetMapping("")
@@ -40,14 +41,16 @@ public class ShoppingController {
     }
 
     @PostMapping("/in-cart")
-    public String inCart(int id) {
+    public String inCart(String id) {
         List<Item> items = (List<Item>) application.getAttribute("items");
-        Item purchacedItem = items.get(id);
+        //　Integer.valueOf : Integerクラスを取得する
+        //  Integer.parseInt : intを取得する
+        Item purchacedItem = items.get(Integer.parseInt(id));
 
         List<Item> shoppingCart = (List<Item>) session.getAttribute("shoppingCart");
         shoppingCart.add(purchacedItem);
 
-        return "redirect:/shopping" + index();
+        return "redirect:/shopping";
     }
 
     @PostMapping("/delete")

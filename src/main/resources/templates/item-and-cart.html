@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>item-and-cart</title>
+</head>
+<body>
+商品一覧<br>
+<div th:each="item,status : ${application.items}">
+    <form action="item-and-cart.html" th:action="@{/shopping/in-cart}" method="post">
+        <span th:text="${item.name}">手帳ノート</span>
+        <span th:text="${#numbers.formatInteger(item.price, 1, 'COMMA')}+円">1,000円</span>
+        <input type="hidden" name="id" th:value="${status.index}">
+        <button>カートへ</button>
+    </form>
+</div>
+<br>
+<form action="item-and-cart.html" th:action="@{/shopping/delete}" method="post">
+    ショッピングカート<br>
+    <div th:each="item : ${session.shoppingCart}">
+        <div>
+            <span th:text="${item.name}">手帳ノート</span>
+            <span th:text="${#numbers.formatInteger(item.price, 1, 'COMMA')}+円">1,000円</span>
+            <button>削除</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>
