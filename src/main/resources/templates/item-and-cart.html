@@ -15,15 +15,15 @@
     </form>
 </div>
 <br>
-<form action="item-and-cart.html" th:action="@{/shopping/delete}" method="post">
-    ショッピングカート<br>
-    <div th:each="item : ${session.shoppingCart}">
-        <div>
-            <span th:text="${item.name}">手帳ノート</span>
-            <span th:text="${#numbers.formatInteger(item.price, 1, 'COMMA')}+円">1,000円</span>
-            <button>削除</button>
-        </div>
-    </div>
-</form>
+
+ショッピングカート<br>
+<div th:each="item,status : ${session.shoppingCart}">
+    <form action="item-and-cart.html" th:action="@{/shopping/delete}" method="post">
+        <span th:text="${item.name}">手帳ノート</span>
+        <span th:text="${#numbers.formatInteger(item.price, 1, 'COMMA')}+円">1,000円</span>
+        <input type="hidden" name="id" th:value="${status.index}">
+        <button>削除</button>
+    </form>
+</div>
 </body>
 </html>

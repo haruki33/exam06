@@ -54,9 +54,9 @@ public class ShoppingController {
     }
 
     @PostMapping("/delete")
-    public String delete(int id) {
+    public String delete(String id) {
         List<Item> shoppingCart = (List<Item>) session.getAttribute("shoppingCart");
-        shoppingCart.remove(id);
-        return "redirect:/shopping" + index();
+        shoppingCart.remove(Integer.parseInt(id));
+        return "redirect:/shopping";
     }
 }
